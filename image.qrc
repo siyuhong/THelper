@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>convert.svg</file>
+        <file>transresult.svg</file>
+        <file>transresult.ico</file>
+    </qresource>
+</RCC>
