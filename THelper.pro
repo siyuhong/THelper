@@ -27,10 +27,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    BaiduTranslateAPI.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    BaiduTranslateAPI.h
 
 FORMS += \
         mainwindow.ui

@@ -8,14 +8,30 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //容易尝试 无响应主因
-    QMetaObject::Connection connRet = QObject::connect(&mNetworkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(requestFinished(QNetworkReply*)));
-    Q_ASSERT(connRet);
+    init();
 }
 
 MainWindow::~MainWindow()
 {
+    delete mBaidutranslate;
+    translateThread->quit();
+    translateThread->wait();
     delete ui;
+}
+
+void MainWindow::init(){
+
+    translateThread = new QThread;
+    mBaidutranslate = new BaiduTranslateAPI;
+
+    mBaidutranslate->moveToThread(translateThread);
+
+    connect(translateThread, &QThread::finished, mBaidutranslate, &QObject::deleteLater);
+
+    connect(this,SIGNAL(SendRequested(QString,QString,QString)),mBaidutranslate,SLOT(slot_SendRequested(QString,QString,QString)));
+    connect(mBaidutranslate,SIGNAL(TranslationReturn(QString)),this,SLOT(slot_TranslationReturn(QString)));
+
+    translateThread->start();
 }
 
 void MainWindow::getLanguage(QString languagename,QString &languagecode)
@@ -34,15 +50,6 @@ void MainWindow::getLanguage(QString languagename,QString &languagecode)
     }
 }
 
-void MainWindow::getRAND(int &rand){
-
-    QTime time;
-    time= QTime::currentTime();
-    qsrand(time.msec()+time.second()*1000);
-    //rang: [0,99]
-    rand = qrand() % 100;
-}
-
 void MainWindow::on_pushButton_translate_clicked()
 {
     // 待翻译文本
@@ -53,86 +60,10 @@ void MainWindow::on_pushButton_translate_clicked()
     QString tolanguagecode = "zh";
     getLanguage(ui->comboBox_tolanguage->currentText(),tolanguagecode);
 
-    //随机数
-    int mrand = 0;
-    getRAND(mrand);
-
-    //MD5 - 签名
-    QString str_noencrypt  = APPID.toUtf8() + strInput.toUtf8() + QString::number(mrand).toUtf8() + Key.toUtf8();
-    QString signature = QCryptographicHash::hash(str_noencrypt.toUtf8(),QCryptographicHash::Md5).toHex();
-
-    //请求拼接
-    QString str_request = "http://api.fanyi.baidu.com/api/trans/vip/translate?q="+ strInput.toUtf8().toPercentEncoding()
-            + "&from=" + fromlanguagecode
-            + "&to=" + tolanguagecode
-            + "&appid="+ APPID
-            + "&salt=" + QString::number(mrand)
-            +"&sign=" + signature;
-
-//    request->setUrl(QUrl(str_request));
-
-    qDebug() << str_request;
-
-    mNetworkManager.get(QNetworkRequest(QString(str_request)));
-
-    qDebug() << "on_pushButton_translate_clicked" << QTime::currentTime();
-
+    emit SendRequested(strInput,fromlanguagecode,tolanguagecode);
 }
 
-void MainWindow::requestFinished(QNetworkReply *reply){
+void MainWindow::slot_TranslationReturn(QString stroutput){
 
-    qDebug() << "requestFinished()" << QTime::currentTime();
-
-    QString transresulttext;
-
-    if  (reply->error() == QNetworkReply::NoError)
-    {
-        QByteArray jsonbytearray = reply->readAll();
-
-        qDebug() << jsonbytearray;
-
-         QJsonParseError jsonpe;
-         QJsonDocument jsonfile = QJsonDocument::fromJson(jsonbytearray, &jsonpe);
-
-         if  (jsonpe.error == QJsonParseError::NoError)
-         {
-             QJsonObject jsobj = jsonfile.object();
-
-             if(jsobj.contains( "trans_result")){
-
-                 QJsonValue transresultValue = jsobj.value("trans_result");
-
-                 if(transresultValue.isArray()){
-                     QJsonArray transresultArray = transresultValue.toArray();
-
-                     qDebug() << "transresultArray Size:" << transresultArray.size();
-
-                     for (int i = 0; i < transresultArray.size(); i++) {
-
-                         //JS Object
-                         QJsonValue itemArray = transresultArray.at(i);
-                         QJsonObject item = itemArray.toObject();
-
-                         QString src = item["src"].toString();
-                         QString dst = item["dst"].toString();
-
-                         qDebug() << "src:" << src << "    " << "dst:"  << dst;
-
-                         transresulttext.append(dst);
-                     }
-
-                     ui->textBrowser_outputtext->setText(transresulttext);
-                 }
-             }
-         }else{
-             qDebug() << "[Error] Js parse error.";
-         }
-     }
-     else
-     {
-         qDebug() <<  "[Error] Request error.";
-     }
-
-    reply->deleteLater();
-
+    ui->textBrowser_outputtext->setText(stroutput);
 }
