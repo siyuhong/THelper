@@ -16,8 +16,9 @@ void BaiduTranslateAPI::getRAND(int &rand){
 
 void BaiduTranslateAPI::slot_SendRequested(QString strinput,QString fromlanguage,QString tolanguage){
 
-    QNetworkAccessManager *mnetwork_Manager = new QNetworkAccessManager;
+    static QNetworkAccessManager *mnetwork_Manager = new QNetworkAccessManager;
 
+    QObject::disconnect(mnetwork_Manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(requestFinished(QNetworkReply*)));
     QMetaObject::Connection connRet = QObject::connect(mnetwork_Manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(requestFinished(QNetworkReply*)));
     Q_ASSERT(connRet);
 
