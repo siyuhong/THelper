@@ -45,6 +45,9 @@ RESOURCES += \
     image.qrc \
 
 DISTFILES += \
-    ico.rc
+    ico.rc \
+    README.md \
+    show/demov0.1.png \
+    show/demov0.2.png
 
 RC_FILE += ico.rc

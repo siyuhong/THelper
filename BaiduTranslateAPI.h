@@ -29,7 +29,7 @@ public slots:
 private:
     /* Baidu API: APPID & Key*/
     QString APPID = "20190829000330465";
-    QString Key = "ooYCad_Jup1cFlcmy66A";
+    QString APPKEY = "ooYCad_Jup1cFlcmy66A";
 
 };
 

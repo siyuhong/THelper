@@ -18,7 +18,7 @@ void BaiduTranslateAPI::slot_SendRequested(QString strinput,QString fromlanguage
     getRAND(mrand,100);
 
     //MDK5 - 签名
-    QString str_noencrypt  = APPID.toUtf8() + strinput + QString::number(mrand).toUtf8() + Key.toUtf8();
+    QString str_noencrypt  = APPID.toUtf8() + strinput + QString::number(mrand).toUtf8() + APPKEY.toUtf8();
     QString signature = QCryptographicHash::hash(str_noencrypt.toUtf8(),QCryptographicHash::Md5).toHex();
 
     //请求拼接

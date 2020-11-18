@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete mBaidutranslate;
+    delete mTencenttranslate;
     translateThread->quit();
     translateThread->wait();
     delete ui;
@@ -95,6 +96,8 @@ void MainWindow::on_radioButton_BaiduAPI_clicked()
     ui->comboBox_tolanguage->addItem("粤语");
     ui->comboBox_tolanguage->addItem("英文");
 
+    ui->textBrowser_outputtext->clear();
+
 }
 
 void MainWindow::on_radioButton_TencentAPI_clicked()
@@ -106,4 +109,6 @@ void MainWindow::on_radioButton_TencentAPI_clicked()
     ui->comboBox_tolanguage->clear();
     ui->comboBox_tolanguage->addItem("中文");
     ui->comboBox_tolanguage->addItem("英文");
+
+     ui->textBrowser_outputtext->clear();
 }
