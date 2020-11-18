@@ -3,5 +3,7 @@
         <file>convert.svg</file>
         <file>transresult.svg</file>
         <file>transresult.ico</file>
+        <file>Baidu_ico.svg</file>
+        <file>Tencent_ico.svg</file>
     </qresource>
 </RCC>

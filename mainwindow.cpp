@@ -21,6 +21,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::init(){
 
+    //ui
+    ui->radioButton_BaiduAPI->setChecked(true);
+
     translateThread = new QThread;
     mBaidutranslate = new BaiduTranslateAPI;
 
@@ -66,4 +69,30 @@ void MainWindow::on_pushButton_translate_clicked()
 void MainWindow::slot_TranslationReturn(QString stroutput){
 
     ui->textBrowser_outputtext->setText(stroutput);
+}
+
+void MainWindow::on_radioButton_BaiduAPI_clicked()
+{
+    ui->comboBox_fromlanguage->clear();
+    ui->comboBox_fromlanguage->addItem("自动检测");
+    ui->comboBox_fromlanguage->addItem("英文");
+    ui->comboBox_fromlanguage->addItem("中文");
+    ui->comboBox_fromlanguage->addItem("粤语");
+
+    ui->comboBox_tolanguage->clear();
+    ui->comboBox_tolanguage->addItem("中文");
+    ui->comboBox_tolanguage->addItem("粤语");
+    ui->comboBox_tolanguage->addItem("英文");
+
+}
+
+void MainWindow::on_radioButton_TencentAPI_clicked()
+{
+    ui->comboBox_fromlanguage->clear();
+    ui->comboBox_fromlanguage->addItem("英文");
+    ui->comboBox_fromlanguage->addItem("中文");
+
+    ui->comboBox_tolanguage->clear();
+    ui->comboBox_tolanguage->addItem("中文");
+    ui->comboBox_tolanguage->addItem("英文");
 }

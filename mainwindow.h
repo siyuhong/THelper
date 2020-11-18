@@ -24,9 +24,13 @@ signals:
 private slots:
     void on_pushButton_translate_clicked();
     void slot_TranslationReturn(QString stroutput);
+    void on_radioButton_BaiduAPI_clicked();
+
+    void on_radioButton_TencentAPI_clicked();
+
 private:
     Ui::MainWindow *ui;
-    QThread *translateThread;
+    QThread *translateThread = NULL;
     BaiduTranslateAPI *mBaidutranslate;
 
     void init();
