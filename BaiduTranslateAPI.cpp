@@ -5,13 +5,17 @@ BaiduTranslateAPI::BaiduTranslateAPI(QObject *parent) : QObject(parent)
 {
 }
 
-void BaiduTranslateAPI::getRAND(int &rand){
+/**
+ * @brief BaiduTranslateAPI::getRAND
+ * @param randm
+ * @return [0,max)
+ */
+void BaiduTranslateAPI::getRAND(int &randm,int max){
 
     QTime time;
     time= QTime::currentTime();
     qsrand(time.msec()+time.second()*1000);
-    //rang: [0,99]
-    rand = qrand() % 100;
+    randm = qrand() % max;
 }
 
 void BaiduTranslateAPI::slot_SendRequested(QString strinput,QString fromlanguage,QString tolanguage){
@@ -24,7 +28,7 @@ void BaiduTranslateAPI::slot_SendRequested(QString strinput,QString fromlanguage
 
     //随机数
     int mrand = 0;
-    getRAND(mrand);
+    getRAND(mrand,100);
 
     //MDK5 - 签名
     QString str_noencrypt  = APPID.toUtf8() + strinput + QString::number(mrand).toUtf8() + Key.toUtf8();
@@ -83,6 +87,8 @@ void BaiduTranslateAPI::requestFinished(QNetworkReply *reply){
                          qDebug() << "src:" << src << "    " << "dst:"  << dst;
 
                          transresulttext.append(dst);
+
+                         transresulttext.append("\n");
                      }
                      emit TranslationReturn(transresulttext);
                  }

@@ -32,8 +32,7 @@ private:
     QString APPID = "20190829000330465";
     QString Key = "ooYCad_Jup1cFlcmy66A";
 
-    void init();
-    void getRAND(int &rand);
+    void getRAND(int &randm,int max);
 };
 
 #endif // BAIDUTRANSLATEAPI_H
