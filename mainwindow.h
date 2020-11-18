@@ -4,7 +4,8 @@
 #include <QMainWindow>
 
 #include <QThread>
-#include <BaiduTranslateAPI.h>
+#include "BaiduTranslateAPI.h"
+#include "TencentTranslateAPI.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,20 +19,18 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-signals:
-    void SendRequested(QString requested,QString fromlanguage,QString tolanguage);
-
 private slots:
     void on_pushButton_translate_clicked();
-    void slot_TranslationReturn(QString stroutput);
     void on_radioButton_BaiduAPI_clicked();
-
     void on_radioButton_TencentAPI_clicked();
+
+    void slot_TranslationReturn(QString stroutput);
 
 private:
     Ui::MainWindow *ui;
     QThread *translateThread = NULL;
     BaiduTranslateAPI *mBaidutranslate;
+    TencentTranslateAPI *mTencenttranslate;
 
     void init();
     void getLanguage(QString languagename,QString &languagecode);

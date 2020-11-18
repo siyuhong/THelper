@@ -111,7 +111,7 @@ border:1px solid rgb(100, 100,189)
            </item>
            <item>
             <property name="text">
-             <string>英语</string>
+             <string>英文</string>
             </property>
            </item>
            <item>
@@ -156,7 +156,7 @@ border:1px solid rgb(100, 100,189)
            </item>
            <item>
             <property name="text">
-             <string>英语</string>
+             <string>英文</string>
             </property>
            </item>
           </widget>

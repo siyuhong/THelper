@@ -1,21 +1,8 @@
 #include "BaiduTranslateAPI.h"
 #include <QDebug>
 
-BaiduTranslateAPI::BaiduTranslateAPI(QObject *parent) : QObject(parent)
+BaiduTranslateAPI::BaiduTranslateAPI()
 {
-}
-
-/**
- * @brief BaiduTranslateAPI::getRAND
- * @param randm
- * @return [0,max)
- */
-void BaiduTranslateAPI::getRAND(int &randm,int max){
-
-    QTime time;
-    time= QTime::currentTime();
-    qsrand(time.msec()+time.second()*1000);
-    randm = qrand() % max;
 }
 
 void BaiduTranslateAPI::slot_SendRequested(QString strinput,QString fromlanguage,QString tolanguage){

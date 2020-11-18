@@ -26,13 +26,15 @@ void MainWindow::init(){
 
     translateThread = new QThread;
     mBaidutranslate = new BaiduTranslateAPI;
+    mTencenttranslate = new TencentTranslateAPI;
 
     mBaidutranslate->moveToThread(translateThread);
+    mTencenttranslate->moveToThread(translateThread);
 
     connect(translateThread, &QThread::finished, mBaidutranslate, &QObject::deleteLater);
 
-    connect(this,SIGNAL(SendRequested(QString,QString,QString)),mBaidutranslate,SLOT(slot_SendRequested(QString,QString,QString)));
     connect(mBaidutranslate,SIGNAL(TranslationReturn(QString)),this,SLOT(slot_TranslationReturn(QString)));
+    connect(mTencenttranslate,SIGNAL(TranslationReturn(QString)),this,SLOT(slot_TranslationReturn(QString)));
 
     translateThread->start();
 }
@@ -45,7 +47,7 @@ void MainWindow::getLanguage(QString languagename,QString &languagecode)
     if("中文" == languagename){
         languagecode = "zh";
     }
-    if("英语" == languagename){
+    if("英文" == languagename){
         languagecode = "en";
     }
     if("粤语" == languagename){
@@ -59,11 +61,20 @@ void MainWindow::on_pushButton_translate_clicked()
     QString strInput = ui->textEdit_intputtext->toPlainText();
 
     QString fromlanguagecode = "auto";
-    getLanguage(ui->comboBox_fromlanguage->currentText(),fromlanguagecode);
     QString tolanguagecode = "zh";
+    getLanguage(ui->comboBox_fromlanguage->currentText(),fromlanguagecode);
     getLanguage(ui->comboBox_tolanguage->currentText(),tolanguagecode);
 
-    emit SendRequested(strInput,fromlanguagecode,tolanguagecode);
+    qDebug() << "fromlanguagecode" << fromlanguagecode;
+    qDebug() << "tolanguagecode" << tolanguagecode;
+
+    //发送信号
+    if(ui->radioButton_BaiduAPI->isChecked()){
+        emit mBaidutranslate->SendRequested(strInput,fromlanguagecode,tolanguagecode);
+    }
+    if(ui->radioButton_TencentAPI->isChecked()){
+        emit mTencenttranslate->SendRequested(strInput,fromlanguagecode,tolanguagecode);
+    }
 }
 
 void MainWindow::slot_TranslationReturn(QString stroutput){

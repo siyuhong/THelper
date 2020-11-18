@@ -14,14 +14,13 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-class BaiduTranslateAPI : public QObject
+#include "TranslatObject.h"
+
+class BaiduTranslateAPI : public TranslatObject
 {
     Q_OBJECT
 public:
-    explicit BaiduTranslateAPI(QObject *parent = nullptr);
-
-signals:
-    void TranslationReturn(QString translation);
+    explicit BaiduTranslateAPI();
 
 public slots:
     void slot_SendRequested(QString strinput,QString fromlanguage,QString tolanguage);
@@ -32,7 +31,6 @@ private:
     QString APPID = "20190829000330465";
     QString Key = "ooYCad_Jup1cFlcmy66A";
 
-    void getRAND(int &randm,int max);
 };
 
 #endif // BAIDUTRANSLATEAPI_H
