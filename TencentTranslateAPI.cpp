@@ -11,22 +11,36 @@ void TencentTranslateAPI::getSign(QMap<QString,QString> lexicographicalmap,QStri
 
     for(int i = 0; i < lexicographicalmap.size(); i++){
         str_noencrypt.append(lexicographicalmap.keys().at(i));
+        qDebug() << "lexicographicalmap.keys().at(i): " << lexicographicalmap.keys().at(i);
         str_noencrypt.append("=");
-        QByteArray value;
-        if(lexicographicalmap.keys().at(i) == "text"){
-            value = QUrl::toPercentEncoding(lexicographicalmap.values().at(i).toUtf8());
-        }else{
-            value = lexicographicalmap.values().at(i).toUtf8();
+
+        QTextCodec *utf8 = QTextCodec::codecForName("utf-8");
+        QByteArray valuearray = utf8->fromUnicode(lexicographicalmap.values().at(i)).toPercentEncoding();
+
+        //应腾讯API要求，将 " "(空格%20)转为"+"
+        QString value = QString(valuearray);
+        int count  = value.count("%20");
+        for(int i = 0;i < count;i++){
+            int index = value.indexOf("%20",0);
+            if(index != -1){
+                value.replace(index,3,"+");
+            }
         }
+
         str_noencrypt.append(value);
+        qDebug() << "value: " << value;
         str_noencrypt.append("&");
     }
 
     str_noencrypt.append("app_key=");
     str_noencrypt.append(appkey);
 
-    //MDK5
+    qDebug() << "str_noencrypt :" << str_noencrypt;
+
+    //MD5
     sign = QCryptographicHash::hash(str_noencrypt.toUtf8(),QCryptographicHash::Md5).toHex().toUpper();
+
+    qDebug() << "sign: " << sign;
 
 }
 

@@ -15,7 +15,7 @@ A simple Qt project - Translation Tool
 - If you just want to use this tool, you can download the exe.
 
 # Exhibition
-Demo V0.1
+- Demo V0.1
 ![image](https://github.com/siyuhong/THelper/blob/master/show/demov0.1.png)
-Demo V0.2
+- Demo V0.2
 ![image](https://github.com/siyuhong/THelper/blob/master/show/demov0.2.png)

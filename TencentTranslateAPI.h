@@ -3,6 +3,9 @@
 
 #include <QObject>
 #include <QMap>
+#include <QString>
+#include <QByteArray>
+#include <QTextCodec>
 #include "TranslatObject.h"
 
 class TencentTranslateAPI : public TranslatObject
