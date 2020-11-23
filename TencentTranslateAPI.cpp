@@ -95,10 +95,15 @@ void TencentTranslateAPI::slot_SendRequested(QString strinput,QString fromlangua
 
     qDebug() << "strrequest:" << strrequest;
 
-    mnetwork_Manager->get(QNetworkRequest(QString(strrequest)));
+    QNetworkReply * reply = mnetwork_Manager->get(QNetworkRequest(QString(strrequest)));
+    QReplyTimeout * timeoutreply = new QReplyTimeout(reply,timeout_ms);
+    connect(timeoutreply,QReplyTimeout::Timeout,this,[=]{
+        reply->abort();
+        reply->deleteLater();
+        qDebug() << "Timeout";
+    });
 
 }
-
 
 void TencentTranslateAPI::requestFinished(QNetworkReply *reply){
 

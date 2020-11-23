@@ -30,13 +30,15 @@ SOURCES += \
         mainwindow.cpp \
     BaiduTranslateAPI.cpp \
     TranslatObject.cpp \
-    TencentTranslateAPI.cpp
+    TencentTranslateAPI.cpp \
+    QReplyTimeout.cpp
 
 HEADERS += \
         mainwindow.h \
     BaiduTranslateAPI.h \
     TranslatObject.h \
-    TencentTranslateAPI.h
+    TencentTranslateAPI.h \
+    QReplyTimeout.h
 
 FORMS += \
         mainwindow.ui

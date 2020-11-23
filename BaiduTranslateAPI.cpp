@@ -31,8 +31,13 @@ void BaiduTranslateAPI::slot_SendRequested(QString strinput,QString fromlanguage
 
     qDebug() << str_request;
 
-    mnetwork_Manager->get(QNetworkRequest(QString(str_request)));
-
+    QNetworkReply * reply = mnetwork_Manager->get(QNetworkRequest(QString(str_request)));
+    QReplyTimeout * timeoutreply = new QReplyTimeout(reply,timeout_ms);
+    connect(timeoutreply,QReplyTimeout::Timeout,this,[=]{
+        reply->abort();
+        reply->deleteLater();
+        qDebug() << "Timeout";
+    });
 }
 
 

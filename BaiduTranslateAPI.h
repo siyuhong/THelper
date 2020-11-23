@@ -1,20 +1,8 @@
 #ifndef BAIDUTRANSLATEAPI_H
 #define BAIDUTRANSLATEAPI_H
 
-#include <QString>
-#include <QTime>
-#include <QCryptographicHash>
-
-#include <QObject>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QNetworkAccessManager>
-
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-
 #include "TranslatObject.h"
+#include "QReplyTimeout.h"
 
 class BaiduTranslateAPI : public TranslatObject
 {
@@ -30,7 +18,7 @@ private:
     /* Baidu API: APPID & Key*/
     QString APPID = "20190829000330465";
     QString APPKEY = "ooYCad_Jup1cFlcmy66A";
-
+    int timeout_ms = 500;
 };
 
 #endif // BAIDUTRANSLATEAPI_H

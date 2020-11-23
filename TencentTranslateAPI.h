@@ -6,7 +6,9 @@
 #include <QString>
 #include <QByteArray>
 #include <QTextCodec>
+
 #include "TranslatObject.h"
+#include "QReplyTimeout.h"
 
 class TencentTranslateAPI : public TranslatObject
 {
@@ -22,7 +24,7 @@ private:
     /* Tencent API: APPID & Key*/
     QString APPID = "2159696347";
     QString APPKEY = "yMJYG71yhVulJSdu";
-
+    int timeout_ms = 500;
     void getSign(QMap<QString,QString> lexicographicalmap,QString appkey,QString &sign);
 };
 
