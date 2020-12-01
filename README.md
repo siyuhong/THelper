@@ -7,6 +7,8 @@
 
 A simple Qt project - Translation Tool
 
+[Blog:Qt - THelper (Translation Tool)](https://blog.csdn.net/weixin_40774605/article/details/109630260)
+
 # Surroundings
 - Qt 5.9.3
 - Windows 7_64
