@@ -2,7 +2,7 @@
 
 [中文页](README_zh.md) |
 
-[![GitHub](https://img.shields.io/github/license/RT-Thread/rt-thread.svg)]
+![GitHub](https://img.shields.io/github/license/RT-Thread/rt-thread.svg)
 
 
 A simple Qt project - Translation Tool
