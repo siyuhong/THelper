@@ -1,4 +1,10 @@
 # THelper
+
+[中文页](README_zh.md) |
+
+[![GitHub](https://img.shields.io/github/license/RT-Thread/rt-thread.svg)](https://github.com/RT-Thread/rt-thread/blob/master/LICENSE)
+
+
 A simple Qt project - Translation Tool
 
 # Surroundings
@@ -22,3 +28,4 @@ A simple Qt project - Translation Tool
 - Demo V0.2
 
   ![image](https://github.com/siyuhong/THelper/blob/master/show/demov0.2.png)
+#
