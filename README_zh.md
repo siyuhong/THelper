@@ -7,6 +7,8 @@
 
 一个简单的 ``Qt`` 工程 - 翻译工具
 
+[Blog : Qt - THelper (Translation Tool)](https://blog.csdn.net/weixin_40774605/article/details/109630260)
+
 # 开发环境
 - Qt 5.9.3
 - Windows 7_64
