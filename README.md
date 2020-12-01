@@ -16,6 +16,9 @@ A simple Qt project - Translation Tool
 
 # Exhibition
 - Demo V0.1
-![image](https://github.com/siyuhong/THelper/blob/master/show/demov0.1.png)
+
+  ![image](https://github.com/siyuhong/THelper/blob/master/show/demov0.1.png)
+
 - Demo V0.2
-![image](https://github.com/siyuhong/THelper/blob/master/show/demov0.2.png)
+
+  ![image](https://github.com/siyuhong/THelper/blob/master/show/demov0.2.png)
